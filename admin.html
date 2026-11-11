@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja - Painel Admin</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>Loja</h1>
+            <nav>
+                <a href="index.html">Início</a>
+                <a href="sobre.html">Sobre</a>
+                <a href="contato.html">Contato</a>
+                <a href="carrinho.html" id="link-carrinho">Carrinho (0)</a>
+                <a href="login.html" id="link-login">Entrar</a>
+                <a href="admin.html" id="link-admin" style="display: none;">Admin</a>
+                <button id="btn-sair" style="display: none;" onclick="fazerLogout()">Sair</button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <h2 style="text-align: center; margin-bottom: 20px;">Cadastrar Novo Produto</h2>
+        <form id="form-produto">
+            <input type="text" id="desc" placeholder="Descrição do Produto" required>
+            <input type="text" id="medida" placeholder="Medida (ex: kg, unidade, litro)" required>
+            <input type="number" id="preco" placeholder="Preço (R$)" step="0.01" min="0" required>
+            <input type="file" id="imagem" accept="image/*" required>
+            <label class="admin-destaque">
+                <input type="checkbox" id="destaque"> Mostrar na página inicial?
+            </label>
+            <button type="submit" class="btn-acao">Cadastrar Produto</button>
+        </form>
+    </main>
+
+    <footer><p>&copy; 2026 Loja. Todos os direitos reservados.</p></footer>
+    <script src="app.js"></script>
+    <script>
+        const usr = JSON.parse(sessionStorage.getItem('usuarioLogado'));
+        if (!usr || usr.email !== EMAIL_ADMIN) {
+            document.body.innerHTML = "<h2 style='text-align:center; padding: 50px;'>Acesso Negado. Apenas o administrador pode ver esta página.</h2>";
+        } else {
+            const form = document.getElementById('form-produto');
+
+            form.addEventListener('submit', event => {
+                event.preventDefault();
+                const arquivoImagem = document.getElementById('imagem').files[0];
+                const leitor = new FileReader();
+
+                leitor.onload = () => {
+                    MockDB.inserir('produtos', {
+                        descricao: document.getElementById('desc').value,
+                        medida: document.getElementById('medida').value,
+                        preco: parseFloat(document.getElementById('preco').value),
+                        imagem_url: leitor.result,
+                        destaque: document.getElementById('destaque').checked
+                    });
+
+                    alert('Produto cadastrado com sucesso!');
+                    form.reset();
+                };
+
+                leitor.readAsDataURL(arquivoImagem);
+            });
+        }
+    </script>
+</body>
+</html>

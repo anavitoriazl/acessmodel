@@ -1,0 +1,107 @@
+carrinho.html
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja - Carrinho</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Mantenha as chaves do EmailJS aqui -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script&gt;
+    <script>emailjs.init("SUA_PUBLIC_KEY_DO_EMAILJS");</script>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>Loja</h1>
+            <nav>
+                <a href="index.html">Início</a>
+                <a href="sobre.html">Sobre</a>
+                <a href="contato.html">Contato</a>
+                <a href="carrinho.html" id="link-carrinho">Carrinho (0)</a>
+                <a href="login.html" id="link-login">Entrar</a>
+                <a href="admin.html" id="link-admin" style="display: none;">Admin</a>
+                <button id="btn-sair" style="display: none;" onclick="fazerLogout()">Sair</button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <h2>Seu Carrinho</h2>
+        <div id="lista-carrinho" style="margin-top: 20px;"></div>
+        <div id="total-carrinho" style="margin: 20px 0; font-size: 1.5rem; text-align: right;"></div>
+        <button class="btn-acao" onclick="finalizarPedido()" style="max-width: 300px; float: right;">Solicitar Pedido</button>
+    </main>
+
+    <footer style="clear: both;"><p>&copy; 2026 Loja. Todos os direitos reservados.</p></footer>
+    <script src="app.js"></script>
+    <script>
+        function renderizarCarrinho() {
+            const lista = document.getElementById('lista-carrinho');
+            let total = 0;
+
+            if (carrinho.length === 0) {
+                lista.innerHTML = "<p>O carrinho está vazio.</p>";
+                document.getElementById('total-carrinho').innerHTML = "";
+                return;
+            }
+
+            lista.innerHTML = carrinho.map(item => {
+                total += (item.preco * item.quantidade);
+                return `
+                    <div class="item-carrinho">
+                        <div style="display: flex; gap: 15px; align-items: center;">
+                            <img src="${item.imagem_url}" onerror="this.src='./img/produto-padrao.png'">
+                            <div>
+                                <h3>${item.descricao}</h3>
+                                <p>Qtd: ${item.quantidade} x ${item.medida}</p>
+                            </div>
+                        </div>
+                        <div class="preco" style="margin: 0;">R$ ${(item.preco * item.quantidade).toFixed(2)}</div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('total-carrinho').innerHTML = `<strong>Total: R$ ${total.toFixed(2)}</strong>`;
+        }
+
+        function finalizarPedido() {
+            const usuarioLogado = JSON.parse(sessionStorage.getItem('usuarioLogado'));
+            if (!usuarioLogado) {
+                alert('Faça login ou cadastre-se para solicitar seu pedido.');
+                window.location.href = 'login.html';
+                return;
+            }
+            if (carrinho.length === 0) return alert('Carrinho vazio!');
+
+            const btn = document.querySelector('.btn-acao');
+            btn.textContent = "Enviando...";
+            btn.disabled = true;
+
+            let resumo = carrinho.map(i => `${i.quantidade}x ${i.descricao} (${i.medida}) - R$ ${(i.preco * i.quantidade).toFixed(2)}`).join('\n');
+           
+            const params = {
+                usuario_email: usuarioLogado.email,
+                resumo_pedido: resumo,
+                para_admin: EMAIL_ADMIN
+            };
+
+            emailjs.send("SEU_SERVICE_ID", "SEU_TEMPLATE_ID", params)
+                .then(() => {
+                    alert('Pedido enviado ao administrador! O banco de dados simulado no navegador não foi alterado.');
+                    localStorage.removeItem('carrinhoLoja');
+                    window.location.href = 'index.html';
+                })
+                .catch((erro) => {
+                    console.error(erro);
+                    alert('Falha ao enviar o pedido.');
+                    btn.textContent = "Solicitar Pedido";
+                    btn.disabled = false;
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', renderizarCarrinho);
+    </script>
+</body>
+</html>

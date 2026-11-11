@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja - Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>Loja</h1>
+            <nav>
+                <a href="index.html">Início</a>
+                <a href="sobre.html">Sobre</a>
+                <a href="contato.html">Contato</a>
+                <a href="carrinho.html" id="link-carrinho">Carrinho (0)</a>
+                <a href="login.html" id="link-login">Entrar</a>
+                <a href="admin.html" id="link-admin" style="display: none;">Admin</a>
+                <button id="btn-sair" style="display: none;" onclick="fazerLogout()">Sair</button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <form id="form-auth">
+            <h2 style="text-align: center;">Entrar ou Cadastrar</h2>
+            <p style="text-align: center; font-size: 0.9rem; margin-bottom: 15px;">A senha para o admin é qualquer uma. O e-mail define o acesso.</p>
+            <input type="email" id="email" placeholder="E-mail" required>
+            <input type="password" id="senha" placeholder="Senha" required>
+            <button type="submit" class="btn-acao" onclick="setAcao('login')">Entrar</button>
+            <button type="submit" class="btn-acao" style="background: var(--primary);" onclick="setAcao('cadastro')">Cadastrar</button>
+        </form>
+    </main>
+
+    <footer><p>&copy; 2026 Loja. Todos os direitos reservados.</p></footer>
+    <script src="app.js"></script>
+    <script>
+        let acaoAtual = 'login';
+        function setAcao(acao) { acaoAtual = acao; }
+
+        document.getElementById('form-auth').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+
+            if (acaoAtual === 'cadastro') {
+                // Simula: INSERT INTO usuarios
+                MockDB.inserir('usuarios', { email, senha });
+                alert("Cadastro realizado! Agora você pode fazer login.");
+            } else {
+                // Simula validação de login (aceita o admin diretamente por conveniência didática)
+                const usuarios = MockDB.obterTabela('usuarios');
+                const existe = usuarios.find(u => u.email === email && u.senha === senha);
+               
+                if (existe || email === EMAIL_ADMIN) {
+                    sessionStorage.setItem('usuarioLogado', JSON.stringify({ email }));
+                    window.location.href = 'index.html';
+                } else {
+                    alert("Usuário não encontrado ou senha incorreta.");
+                }
+            }
+        });
+    </script>
+</body>
+</html>

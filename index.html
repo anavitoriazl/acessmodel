@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja - Início</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>Loja</h1>
+            <nav>
+                <a href="index.html">Início</a>
+                <a href="sobre.html">Sobre</a>
+                <a href="contato.html">Contato</a>
+                <a href="carrinho.html" id="link-carrinho">Carrinho (0)</a>
+                <a href="login.html" id="link-login">Entrar</a>
+                <a href="admin.html" id="link-admin" style="display: none;">Admin</a>
+                <button id="btn-sair" style="display: none;" onclick="fazerLogout()">Sair</button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <h2 style="margin-bottom: 1.5rem; text-align: center;">Destaques da Semana</h2>
+        <div id="product-grid" class="grid">
+            <p>Carregando produtos...</p>
+        </div>
+    </main>
+
+    <footer><p>&copy; 2026 Loja. Todos os direitos reservados.</p></footer>
+
+    <script src="app.js"></script>
+    <script>
+        function carregarDestaques() {
+            const grid = document.getElementById('product-grid');
+           
+            // Simula: SELECT * FROM produtos WHERE destaque = true
+            const dados = MockDB.selecionar('produtos', p => p.destaque === true);
+           
+            if (dados.length === 0) {
+                grid.innerHTML = '<p>Nenhum produto em destaque ou banco de dados vazio.</p>';
+                return;
+            }
+
+            grid.innerHTML = dados.map(p => `
+                <div class="card">
+                    <img src="${p.imagem_url}" alt="${p.descricao}" onerror="this.src='./img/produto-padrao.png'">
+                    <h2>${p.descricao}</h2>
+                    <p>Medida: 1 ${p.medida}</p>
+                    <div class="preco">R$ ${p.preco.toFixed(2)}</div>
+                    <button class="btn-acao" onclick="adicionarAoCarrinho('${p.id}', '${p.descricao}', ${p.preco}, '${p.medida}', '${p.imagem_url}')">Adicionar</button>
+                </div>
+            `).join('');
+        }
+        document.addEventListener('DOMContentLoaded', carregarDestaques);
+    </script>
+</body>
+</html>

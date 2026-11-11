@@ -1,0 +1,42 @@
+contato.html
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja - Contato</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script&gt;
+</head>
+<body>
+    <!-- Copie o <header> do index.html aqui -->
+    <header>
+        <div class="header-container">
+            <h1>Loja</h1>
+            <nav>
+                <a href="index.html">Início</a>
+                <a href="sobre.html">Sobre</a>
+                <a href="contato.html">Contato</a>
+                <a href="carrinho.html" id="link-carrinho">Carrinho (0)</a>
+                <a href="login.html" id="link-login">Entrar</a>
+                <a href="admin.html" id="link-admin" style="display: none;">Admin</a>
+                <button id="btn-sair" style="display: none;" onclick="fazerLogout()">Sair</button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <h2 style="text-align: center; margin-bottom: 20px;">Fale Conosco</h2>
+        <form onsubmit="event.preventDefault(); alert('Mensagem enviada com sucesso!'); this.reset();">
+            <input type="text" placeholder="Seu Nome" required>
+            <input type="email" placeholder="Seu E-mail" required>
+            <textarea placeholder="Sua Mensagem" rows="5" required style="padding: 10px; font-family: inherit;"></textarea>
+            <button type="submit" class="btn-acao">Enviar Mensagem</button>
+        </form>
+    </main>
+
+    <footer><p>&copy; 2026 Loja. Todos os direitos reservados.</p></footer>
+    <script src="app.js"></script>
+</body>
+</html>
