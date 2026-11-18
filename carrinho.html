@@ -1,5 +1,3 @@
-carrinho.html
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -8,13 +6,13 @@ carrinho.html
     <title>Loja - Carrinho</title>
     <link rel="stylesheet" href="style.css">
     <!-- Mantenha as chaves do EmailJS aqui -->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script&gt;
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>emailjs.init("SUA_PUBLIC_KEY_DO_EMAILJS");</script>
 </head>
 <body>
     <header>
         <div class="header-container">
-            <h1>Loja</h1>
+            <h1 class="brand"><a href="index.html"><img src="lotus-logo.svg" alt=""><span>Loja</span></a></h1>
             <nav>
                 <a href="index.html">Início</a>
                 <a href="sobre.html">Sobre</a>
@@ -27,16 +25,37 @@ carrinho.html
         </div>
     </header>
 
-    <main>
+    <main class="cart-page">
         <h2>Seu Carrinho</h2>
+        <section class="cart-lotus-banner" aria-label="Decoração de flores de lótus">
+            <div class="cart-lotus-garland" aria-hidden="true">
+                <img src="lotus-flower.svg" alt="">
+                <img src="lotus-flower.svg" alt="">
+                <img src="lotus-flower.svg" alt="">
+                <img src="lotus-flower.svg" alt="">
+                <img src="lotus-flower.svg" alt="">
+                <img src="lotus-flower.svg" alt="">
+                <img src="lotus-flower.svg" alt="">
+            </div>
+        </section>
         <div id="lista-carrinho" style="margin-top: 20px;"></div>
         <div id="total-carrinho" style="margin: 20px 0; font-size: 1.5rem; text-align: right;"></div>
-        <button class="btn-acao" onclick="finalizarPedido()" style="max-width: 300px; float: right;">Solicitar Pedido</button>
+        <button class="btn-acao cart-order-button" onclick="finalizarPedido()">Solicitar Pedido</button>
     </main>
 
-    <footer style="clear: both;"><p>&copy; 2026 Loja. Todos os direitos reservados.</p></footer>
+    <footer><p>&copy; 2026 Loja. Todos os direitos reservados.</p></footer>
     <script src="app.js"></script>
     <script>
+        function removerDoCarrinho(id) {
+            const carrinhoAtualizado = carrinho.filter(item => item.id !== id);
+            if (carrinhoAtualizado.length === carrinho.length) return;
+
+            carrinho = carrinhoAtualizado;
+            localStorage.setItem('carrinhoLoja', JSON.stringify(carrinho));
+            atualizarContadorCarrinho();
+            renderizarCarrinho();
+        }
+
         function renderizarCarrinho() {
             const lista = document.getElementById('lista-carrinho');
             let total = 0;
@@ -59,6 +78,7 @@ carrinho.html
                             </div>
                         </div>
                         <div class="preco" style="margin: 0;">R$ ${(item.preco * item.quantidade).toFixed(2)}</div>
+                        <button class="btn-remover" type="button" data-remover="${item.id}">Remover</button>
                     </div>
                 `;
             }).join('');
@@ -101,7 +121,13 @@ carrinho.html
                 });
         }
 
-        document.addEventListener('DOMContentLoaded', renderizarCarrinho);
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('lista-carrinho').addEventListener('click', event => {
+                const botaoRemover = event.target.closest('button[data-remover]');
+                if (botaoRemover) removerDoCarrinho(botaoRemover.dataset.remover);
+            });
+            renderizarCarrinho();
+        });
     </script>
 </body>
 </html>

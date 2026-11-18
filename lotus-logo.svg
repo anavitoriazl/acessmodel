@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="petal" x1="50" y1="16" x2="50" y2="76" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF8FA"/>
+      <stop offset="1" stop-color="#EFAFC0"/>
+    </linearGradient>
+    <linearGradient id="sidePetal" x1="18" y1="44" x2="50" y2="75" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FCE7EC"/>
+      <stop offset="1" stop-color="#DD8EA4"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="47" fill="#FFF9FA" stroke="#E9A9B9" stroke-width="2"/>
+  <circle cx="50" cy="50" r="42" stroke="#F2D1D8" stroke-width="1.5" stroke-dasharray="1 4"/>
+  <path d="M50 72C36 70 23 62 16 49C31 47 44 55 50 72Z" fill="url(#sidePetal)" stroke="#C96F88" stroke-width="1.5" stroke-linejoin="round"/>
+  <path d="M50 72C38 62 32 48 36 34C47 43 53 57 50 72Z" fill="url(#petal)" stroke="#C96F88" stroke-width="1.5" stroke-linejoin="round"/>
+  <path d="M50 72C38 56 39 32 50 17C61 32 62 56 50 72Z" fill="url(#petal)" stroke="#C96F88" stroke-width="1.5" stroke-linejoin="round"/>
+  <path d="M50 72C62 62 68 48 64 34C53 43 47 57 50 72Z" fill="url(#petal)" stroke="#C96F88" stroke-width="1.5" stroke-linejoin="round"/>
+  <path d="M50 72C64 70 77 62 84 49C69 47 56 55 50 72Z" fill="url(#sidePetal)" stroke="#C96F88" stroke-width="1.5" stroke-linejoin="round"/>
+  <path d="M29 77C41 82 59 82 71 77" stroke="#B84D6B" stroke-width="2" stroke-linecap="round"/>
+  <path d="M37 82C44 85 56 85 63 82" stroke="#E5B54E" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="25" cy="32" r="2" fill="#E5B54E"/>
+  <circle cx="75" cy="32" r="2" fill="#E5B54E"/>
+  <path d="M50 8V12M50 88V92" stroke="#E5B54E" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

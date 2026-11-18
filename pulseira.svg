@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" fill="none">
+  <ellipse cx="90" cy="88" rx="48" ry="56" stroke="#D9A1B0" stroke-width="5"/>
+  <circle cx="90" cy="31" r="10" fill="#F4C8D2" stroke="#C76D86" stroke-width="2"/>
+  <circle cx="114" cy="36" r="10" fill="#EBAABB" stroke="#C76D86" stroke-width="2"/>
+  <circle cx="132" cy="53" r="10" fill="#FFF0B5" stroke="#D5A43F" stroke-width="2"/>
+  <circle cx="139" cy="77" r="10" fill="#F4C8D2" stroke="#C76D86" stroke-width="2"/>
+  <circle cx="136" cy="101" r="10" fill="#EBAABB" stroke="#C76D86" stroke-width="2"/>
+  <circle cx="122" cy="122" r="10" fill="#FFF0B5" stroke="#D5A43F" stroke-width="2"/>
+  <circle cx="101" cy="137" r="10" fill="#F4C8D2" stroke="#C76D86" stroke-width="2"/>
+  <circle cx="77" cy="137" r="10" fill="#EBAABB" stroke="#C76D86" stroke-width="2"/>
+  <circle cx="56" cy="123" r="10" fill="#FFF0B5" stroke="#D5A43F" stroke-width="2"/>
+  <circle cx="42" cy="102" r="10" fill="#F4C8D2" stroke="#C76D86" stroke-width="2"/>
+  <circle cx="39" cy="78" r="10" fill="#EBAABB" stroke="#C76D86" stroke-width="2"/>
+  <circle cx="47" cy="54" r="10" fill="#FFF0B5" stroke="#D5A43F" stroke-width="2"/>
+  <circle cx="66" cy="37" r="10" fill="#F4C8D2" stroke="#C76D86" stroke-width="2"/>
+  <g fill="#FFF9FA">
+    <circle cx="87" cy="28" r="2"/><circle cx="111" cy="33" r="2"/>
+    <circle cx="129" cy="50" r="2"/><circle cx="136" cy="74" r="2"/>
+    <circle cx="133" cy="98" r="2"/><circle cx="119" cy="119" r="2"/>
+    <circle cx="98" cy="134" r="2"/><circle cx="74" cy="134" r="2"/>
+    <circle cx="53" cy="120" r="2"/><circle cx="39" cy="99" r="2"/>
+    <circle cx="36" cy="75" r="2"/><circle cx="44" cy="51" r="2"/>
+  </g>
+</svg>

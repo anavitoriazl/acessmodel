@@ -6,10 +6,10 @@
     <title>Loja - Início</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="home-page">
     <header>
         <div class="header-container">
-            <h1>Loja</h1>
+            <h1 class="brand"><a href="index.html"><img src="lotus-logo.svg" alt=""><span>Loja</span></a></h1>
             <nav>
                 <a href="index.html">Início</a>
                 <a href="sobre.html">Sobre</a>
@@ -22,11 +22,27 @@
         </div>
     </header>
 
-    <main>
-        <h2 style="margin-bottom: 1.5rem; text-align: center;">Destaques da Semana</h2>
-        <div id="product-grid" class="grid">
-            <p>Carregando produtos...</p>
-        </div>
+    <main class="home-main">
+        <section class="weekly-feature" aria-labelledby="weekly-title">
+            <div class="weekly-feature-inner">
+                <div class="weekly-copy">
+                    <p class="weekly-eyebrow">Encanto, brilho e delicadeza</p>
+                    <h2 id="weekly-title">Destaques da Semana</h2>
+                    <p>Acessórios delicados para colorir seus dias com um toque de magia, inspirados na leveza da flor de lótus.</p>
+                    <a class="weekly-link" href="#product-grid">Explorar destaques <span aria-hidden="true">&darr;</span></a>
+                </div>
+                <div class="weekly-art">
+                    <img class="weekly-portrait" src="home-lotus-girl.svg" alt="Ilustração de uma menina com cabelos rosa, presilhas de lótus, brincos e colar">
+                    <img class="weekly-lotus" src="lotus-flower.svg" alt="Flor de lótus rosa pastel em tamanho grande">
+                </div>
+            </div>
+        </section>
+
+        <section class="weekly-products" aria-label="Produtos em destaque">
+            <div id="product-grid" class="grid">
+                <p>Carregando produtos...</p>
+            </div>
+        </section>
     </main>
 
     <footer><p>&copy; 2026 Loja. Todos os direitos reservados.</p></footer>

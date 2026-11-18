@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 280" fill="none">
+  <defs>
+    <linearGradient id="petalCenter" x1="160" y1="35" x2="160" y2="225" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF9FA"/>
+      <stop offset="1" stop-color="#EBA9BA"/>
+    </linearGradient>
+    <linearGradient id="petalSide" x1="48" y1="120" x2="160" y2="226" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FCE8ED"/>
+      <stop offset="1" stop-color="#D9859B"/>
+    </linearGradient>
+  </defs>
+  <path d="M159 222C128 211 102 218 79 241C111 247 140 240 160 226C180 240 209 247 241 241C218 218 192 211 161 222" fill="#DCE8D3" stroke="#A5B99A" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M158 226C119 220 63 197 38 146C86 140 137 165 158 226Z" fill="url(#petalSide)" stroke="#C76D86" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M160 226C123 201 95 151 105 91C143 126 165 177 160 226Z" fill="url(#petalCenter)" stroke="#C76D86" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M160 228C126 178 130 102 160 36C190 102 194 178 160 228Z" fill="url(#petalCenter)" stroke="#C76D86" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M160 226C197 201 225 151 215 91C177 126 155 177 160 226Z" fill="url(#petalCenter)" stroke="#C76D86" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M162 226C201 220 257 197 282 146C234 140 183 165 162 226Z" fill="url(#petalSide)" stroke="#C76D86" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M134 222C148 228 172 228 186 222" stroke="#D8A33D" stroke-width="3" stroke-linecap="round"/>
+  <path d="M89 71L94 78M229 65L234 72M61 112L66 116M253 109L258 113" stroke="#D8A33D" stroke-width="3" stroke-linecap="round"/>
+  <path d="M160 17V26M45 204L52 208M268 204L275 208" stroke="#D8A33D" stroke-width="2" stroke-linecap="round"/>
+</svg>

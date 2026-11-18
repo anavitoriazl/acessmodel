@@ -9,7 +9,7 @@
 <body>
     <header>
         <div class="header-container">
-            <h1>Loja</h1>
+            <h1 class="brand"><a href="index.html"><img src="lotus-logo.svg" alt=""><span>Loja</span></a></h1>
             <nav>
                 <a href="index.html">Início</a>
                 <a href="sobre.html">Sobre</a>
@@ -22,32 +22,119 @@
         </div>
     </header>
 
-    <main>
-        <h2 style="text-align: center; margin-bottom: 20px;">Cadastrar Novo Produto</h2>
-        <form id="form-produto">
-            <input type="text" id="desc" placeholder="Descrição do Produto" required>
-            <input type="text" id="medida" placeholder="Medida (ex: kg, unidade, litro)" required>
-            <input type="number" id="preco" placeholder="Preço (R$)" step="0.01" min="0" required>
-            <input type="file" id="imagem" accept="image/*" required>
-            <label class="admin-destaque">
-                <input type="checkbox" id="destaque"> Mostrar na página inicial?
-            </label>
-            <button type="submit" class="btn-acao">Cadastrar Produto</button>
-        </form>
+    <main class="admin-page">
+        <div class="admin-heading">
+            <p class="admin-eyebrow">Área da proprietária</p>
+            <h2>Cadastrar produto</h2>
+            <p>Adicione uma peça à vitrine da loja.</p>
+        </div>
+        <div class="admin-layout">
+            <form id="form-produto" class="admin-form">
+                <label>Nome do produto
+                    <input type="text" id="desc" placeholder="Ex.: Pulseira de pérolas" required>
+                </label>
+                <label>Unidade ou medida
+                    <input type="text" id="medida" placeholder="Ex.: unidade, par" required>
+                </label>
+                <label>Preço (R$)
+                    <input type="number" id="preco" placeholder="0,00" step="0.01" min="0.01" required>
+                </label>
+                <label>Foto do produto
+                    <input type="file" id="imagem" accept="image/*" required>
+                </label>
+                <label class="admin-destaque">
+                    <input type="checkbox" id="destaque" checked> Exibir na página inicial
+                </label>
+                <button type="submit" class="btn-acao">Cadastrar produto</button>
+                <p id="admin-status" class="admin-status" role="status" aria-live="polite"></p>
+            </form>
+
+            <section class="admin-products" aria-labelledby="admin-products-title">
+                <div class="admin-products-heading">
+                    <h3 id="admin-products-title">Produtos cadastrados</h3>
+                    <span id="admin-product-count">0 produtos</span>
+                </div>
+                <div id="admin-product-list" class="admin-product-list"></div>
+            </section>
+        </div>
     </main>
 
     <footer><p>&copy; 2026 Loja. Todos os direitos reservados.</p></footer>
     <script src="app.js"></script>
     <script>
-        const usr = JSON.parse(sessionStorage.getItem('usuarioLogado'));
-        if (!usr || usr.email !== EMAIL_ADMIN) {
-            document.body.innerHTML = "<h2 style='text-align:center; padding: 50px;'>Acesso Negado. Apenas o administrador pode ver esta página.</h2>";
+        const usr = JSON.parse(sessionStorage.getItem('usuarioLogado') || 'null');
+        if (!usr || usr.email.toLowerCase() !== EMAIL_ADMIN) {
+            window.location.replace('login.html');
         } else {
             const form = document.getElementById('form-produto');
+            const listaProdutos = document.getElementById('admin-product-list');
+            const contadorProdutos = document.getElementById('admin-product-count');
+            const status = document.getElementById('admin-status');
+
+            function renderizarProdutos() {
+                const produtos = MockDB.selecionar('produtos');
+                listaProdutos.replaceChildren();
+                contadorProdutos.textContent = `${produtos.length} ${produtos.length === 1 ? 'produto' : 'produtos'}`;
+
+                if (produtos.length === 0) {
+                    const vazio = document.createElement('p');
+                    vazio.className = 'admin-empty';
+                    vazio.textContent = 'Seus produtos cadastrados aparecerão aqui.';
+                    listaProdutos.append(vazio);
+                    return;
+                }
+
+                produtos.forEach(produto => {
+                    const item = document.createElement('article');
+                    item.className = 'admin-product';
+
+                    const imagem = document.createElement('img');
+                    imagem.src = produto.imagem_url;
+                    imagem.alt = '';
+                    imagem.onerror = () => { imagem.hidden = true; };
+
+                    const detalhes = document.createElement('div');
+                    detalhes.className = 'admin-product-details';
+                    const nome = document.createElement('h4');
+                    nome.textContent = produto.descricao;
+                    const resumo = document.createElement('p');
+                    resumo.textContent = `${produto.medida} · R$ ${Number(produto.preco).toFixed(2)}`;
+                    detalhes.append(nome, resumo);
+
+                    const situacao = document.createElement('span');
+                    situacao.className = produto.destaque ? 'admin-badge is-visible' : 'admin-badge';
+                    situacao.textContent = produto.destaque ? 'Na vitrine' : 'Oculto';
+
+                    const remover = document.createElement('button');
+                    remover.type = 'button';
+                    remover.className = 'admin-delete';
+                    remover.dataset.removerProduto = produto.id;
+                    remover.textContent = 'Excluir';
+                    remover.setAttribute('aria-label', `Excluir ${produto.descricao}`);
+
+                    item.append(imagem, detalhes, situacao, remover);
+                    listaProdutos.append(item);
+                });
+            }
+
+            listaProdutos.addEventListener('click', event => {
+                const botaoRemover = event.target.closest('button[data-remover-produto]');
+                if (!botaoRemover) return;
+
+                const produto = MockDB.selecionar('produtos', item => item.id === botaoRemover.dataset.removerProduto)[0];
+                if (!produto || !confirm(`Excluir "${produto.descricao}" da loja?`)) return;
+
+                if (MockDB.remover('produtos', produto.id)) {
+                    status.textContent = `Produto "${produto.descricao}" excluído.`;
+                    renderizarProdutos();
+                }
+            });
 
             form.addEventListener('submit', event => {
                 event.preventDefault();
                 const arquivoImagem = document.getElementById('imagem').files[0];
+                if (!arquivoImagem) return;
+
                 const leitor = new FileReader();
 
                 leitor.onload = () => {
@@ -59,12 +146,18 @@
                         destaque: document.getElementById('destaque').checked
                     });
 
-                    alert('Produto cadastrado com sucesso!');
                     form.reset();
+                    status.textContent = 'Produto cadastrado e pronto para aparecer na loja.';
+                    renderizarProdutos();
                 };
 
+                leitor.onerror = () => {
+                    status.textContent = 'Não foi possível carregar essa imagem. Tente outro arquivo.';
+                };
                 leitor.readAsDataURL(arquivoImagem);
             });
+
+            renderizarProdutos();
         }
     </script>
 </body>

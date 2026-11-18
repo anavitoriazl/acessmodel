@@ -1,5 +1,3 @@
-contato.html
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -7,13 +5,13 @@ contato.html
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loja - Contato</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script&gt;
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
     <!-- Copie o <header> do index.html aqui -->
     <header>
         <div class="header-container">
-            <h1>Loja</h1>
+            <h1 class="brand"><a href="index.html"><img src="lotus-logo.svg" alt=""><span>Loja</span></a></h1>
             <nav>
                 <a href="index.html">Início</a>
                 <a href="sobre.html">Sobre</a>
@@ -26,17 +24,59 @@ contato.html
         </div>
     </header>
 
-    <main>
-        <h2 style="text-align: center; margin-bottom: 20px;">Fale Conosco</h2>
-        <form onsubmit="event.preventDefault(); alert('Mensagem enviada com sucesso!'); this.reset();">
-            <input type="text" placeholder="Seu Nome" required>
-            <input type="email" placeholder="Seu E-mail" required>
-            <textarea placeholder="Sua Mensagem" rows="5" required style="padding: 10px; font-family: inherit;"></textarea>
-            <button type="submit" class="btn-acao">Enviar Mensagem</button>
-        </form>
+    <main class="contact-page">
+        <section class="contact-intro" aria-labelledby="contact-title">
+            <p class="contact-eyebrow">Um espaço feito para conversar</p>
+            <h2 id="contact-title">Vamos conversar?</h2>
+            <p class="contact-description">Tem uma dúvida sobre um produto, quer acompanhar um pedido ou compartilhar uma ideia? Escreva para a gente. Será um prazer responder.</p>
+            <a class="contact-email" href="mailto:anaandrade5756@gmail.com">anaandrade5756@gmail.com</a>
+            <div class="contact-art" aria-hidden="true">
+                <img class="contact-mascot" src="contact-mascot.svg" alt="">
+                <img class="contact-lotus" src="lotus-flower.svg" alt="">
+            </div>
+        </section>
+
+        <section class="contact-form-section" aria-labelledby="contact-form-title">
+            <h3 id="contact-form-title">Envie sua mensagem</h3>
+            <form id="contact-form" class="contact-form">
+                <div class="contact-fields">
+                    <label>Seu nome
+                        <input type="text" name="nome" autocomplete="name" placeholder="Como podemos chamar você?" required>
+                    </label>
+                    <label>Seu e-mail
+                        <input type="email" name="email" autocomplete="email" placeholder="voce@exemplo.com" required>
+                    </label>
+                </div>
+                <label>Assunto
+                    <select name="assunto" required>
+                        <option value="Duvida sobre um produto">Dúvida sobre um produto</option>
+                        <option value="Pedido e entrega">Pedido e entrega</option>
+                        <option value="Sugestao">Sugestão</option>
+                        <option value="Outro assunto">Outro assunto</option>
+                    </select>
+                </label>
+                <label>Sua mensagem
+                    <textarea name="mensagem" rows="5" placeholder="Escreva sua mensagem..." required></textarea>
+                </label>
+                <button type="submit" class="btn-acao">Enviar mensagem</button>
+                <p id="contact-status" class="contact-status" role="status" aria-live="polite"></p>
+            </form>
+        </section>
     </main>
 
     <footer><p>&copy; 2026 Loja. Todos os direitos reservados.</p></footer>
     <script src="app.js"></script>
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', event => {
+            event.preventDefault();
+            const dados = new FormData(event.currentTarget);
+            const assunto = `[Loja] ${dados.get('assunto')}`;
+            const corpo = `Nome: ${dados.get('nome')}\nE-mail: ${dados.get('email')}\n\n${dados.get('mensagem')}`;
+            const linkEmail = `mailto:anaandrade5756@gmail.com?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`;
+
+            document.getElementById('contact-status').textContent = 'Abrindo seu aplicativo de e-mail com a mensagem preenchida. Revise e aperte Enviar.';
+            window.location.href = linkEmail;
+        });
+    </script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-const EMAIL_ADMIN = 'admin@loja.com'; // Credencial estática de administrador
+const EMAIL_ADMIN = 'admin123@gmail.com';
 
 // ==========================================
 // 1. SIMULADOR DE BANCO DE DADOS RELACIONAL
@@ -22,6 +22,15 @@ const MockDB = {
         tabela.push(registro);
         MockDB.salvarTabela(nomeTabela, tabela);
         return registro;
+    },
+
+    remover: (nomeTabela, id) => {
+        const tabela = MockDB.obterTabela(nomeTabela);
+        const tabelaAtualizada = tabela.filter(registro => registro.id !== id);
+        if (tabelaAtualizada.length === tabela.length) return false;
+
+        MockDB.salvarTabela(nomeTabela, tabelaAtualizada);
+        return true;
     },
 
     // Simula: SELECT * FROM tabela WHERE filtro

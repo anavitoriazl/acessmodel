@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 280" fill="none">
+  <defs>
+    <linearGradient id="hair" x1="72" y1="45" x2="184" y2="236" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9D7F3"/>
+      <stop offset="1" stop-color="#B89BCB"/>
+    </linearGradient>
+    <linearGradient id="dress" x1="125" y1="177" x2="125" y2="276" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8DDE4"/>
+      <stop offset="1" stop-color="#E8AFC0"/>
+    </linearGradient>
+  </defs>
+  <path d="M63 101C57 66 77 34 111 27C147 19 181 43 187 79C194 119 188 179 204 217C211 235 198 248 183 239L169 220L158 249C150 266 134 268 126 250L116 227L100 249C88 262 73 254 76 237L83 210C59 185 56 141 63 101Z" fill="url(#hair)" stroke="#8E719F" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M101 165H150L156 193C173 202 186 215 190 239L194 268H58L62 239C66 215 80 202 96 193L101 165Z" fill="url(#dress)" stroke="#B84D6B" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M101 164C91 151 86 130 87 108C88 79 105 59 127 59C151 59 168 79 168 108C168 132 161 153 150 165C137 177 114 177 101 164Z" fill="#F8D9CB" stroke="#B84D6B" stroke-width="3"/>
+  <path d="M84 103C76 70 95 43 125 40C158 37 178 63 169 99C160 87 151 77 140 71C126 89 106 98 84 103Z" fill="url(#hair)" stroke="#8E719F" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M89 98C97 88 103 77 104 65M112 87C124 79 132 68 135 56M145 88C153 79 157 70 158 61" stroke="#F8EFFB" stroke-width="4" stroke-linecap="round" opacity="0.9"/>
+  <path d="M99 119C104 124 110 124 115 119M138 119C143 124 149 124 154 119" stroke="#76566F" stroke-width="3" stroke-linecap="round"/>
+  <path d="M119 143C125 148 132 148 138 143" stroke="#B85F76" stroke-width="2.5" stroke-linecap="round"/>
+  <ellipse cx="94" cy="136" rx="8" ry="4" fill="#EBAABB" opacity="0.75"/>
+  <ellipse cx="157" cy="136" rx="8" ry="4" fill="#EBAABB" opacity="0.75"/>
+  <path d="M101 166C109 179 142 180 150 166" stroke="#FFF7F8" stroke-width="4" stroke-linecap="round"/>
+  <path d="M124 190L130 198L124 205L118 198L124 190Z" fill="#FFF0B5" stroke="#C88F31" stroke-width="2"/>
+  <path d="M44 94L48 103L58 106L50 112L48 122L42 114L33 112L40 106L44 94Z" fill="#FFF0B5"/>
+  <path d="M199 125L202 132L210 135L203 140L202 148L197 142L189 140L195 135L199 125Z" fill="#E9C0CE"/>
+</svg>

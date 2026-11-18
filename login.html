@@ -9,7 +9,7 @@
 <body>
     <header>
         <div class="header-container">
-            <h1>Loja</h1>
+            <h1 class="brand"><a href="index.html"><img src="lotus-logo.svg" alt=""><span>Loja</span></a></h1>
             <nav>
                 <a href="index.html">Início</a>
                 <a href="sobre.html">Sobre</a>
@@ -22,15 +22,33 @@
         </div>
     </header>
 
-    <main>
-        <form id="form-auth">
-            <h2 style="text-align: center;">Entrar ou Cadastrar</h2>
-            <p style="text-align: center; font-size: 0.9rem; margin-bottom: 15px;">A senha para o admin é qualquer uma. O e-mail define o acesso.</p>
-            <input type="email" id="email" placeholder="E-mail" required>
-            <input type="password" id="senha" placeholder="Senha" required>
-            <button type="submit" class="btn-acao" onclick="setAcao('login')">Entrar</button>
-            <button type="submit" class="btn-acao" style="background: var(--primary);" onclick="setAcao('cadastro')">Cadastrar</button>
-        </form>
+    <main class="auth-page">
+        <section class="auth-welcome" aria-labelledby="welcome-title">
+            <div class="auth-welcome-copy">
+                <p class="auth-eyebrow">Um cantinho para florescer</p>
+                <h2 id="welcome-title">Seja bem-vindo</h2>
+                <p>Que bom ter você por aqui. Entre para acompanhar seus pedidos ou crie sua conta para descobrir cada novidade com calma.</p>
+            </div>
+            <div class="auth-lotus" aria-hidden="true">
+                <img src="lotus-flower.svg" alt="">
+            </div>
+        </section>
+
+        <section class="auth-panel" aria-labelledby="auth-title">
+            <form id="form-auth" class="auth-form">
+                <h2 id="auth-title">Entre ou crie sua conta</h2>
+                <label class="auth-field">E-mail
+                    <input type="email" id="email" placeholder="voce@exemplo.com" autocomplete="email" required>
+                </label>
+                <label class="auth-field">Senha
+                    <input type="password" id="senha" placeholder="Digite sua senha" autocomplete="current-password" required>
+                </label>
+                <div class="auth-actions">
+                    <button type="submit" class="btn-acao" onclick="setAcao('login')">Entrar</button>
+                    <button type="submit" class="btn-acao auth-register" onclick="setAcao('cadastro')">Cadastrar</button>
+                </div>
+            </form>
+        </section>
     </main>
 
     <footer><p>&copy; 2026 Loja. Todos os direitos reservados.</p></footer>
@@ -41,19 +59,22 @@
 
         document.getElementById('form-auth').addEventListener('submit', (e) => {
             e.preventDefault();
-            const email = document.getElementById('email').value;
+            const email = document.getElementById('email').value.trim().toLowerCase();
             const senha = document.getElementById('senha').value;
 
             if (acaoAtual === 'cadastro') {
-                // Simula: INSERT INTO usuarios
+                const usuarios = MockDB.obterTabela('usuarios');
+                if (usuarios.some(usuario => usuario.email.toLowerCase() === email)) {
+                    alert('Este e-mail já tem cadastro. Entre com sua senha.');
+                    return;
+                }
                 MockDB.inserir('usuarios', { email, senha });
                 alert("Cadastro realizado! Agora você pode fazer login.");
             } else {
-                // Simula validação de login (aceita o admin diretamente por conveniência didática)
                 const usuarios = MockDB.obterTabela('usuarios');
-                const existe = usuarios.find(u => u.email === email && u.senha === senha);
+                const existe = usuarios.find(u => u.email.toLowerCase() === email && u.senha === senha);
                
-                if (existe || email === EMAIL_ADMIN) {
+                if (existe) {
                     sessionStorage.setItem('usuarioLogado', JSON.stringify({ email }));
                     window.location.href = 'index.html';
                 } else {
